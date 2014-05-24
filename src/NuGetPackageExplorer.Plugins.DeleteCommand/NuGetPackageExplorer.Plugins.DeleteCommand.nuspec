@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>NuGetPackageExplorer.Plugins.DeleteCommand</id>
+    <version>$version$</version>
+    <title>Nuget Package Explorer Plugin - Delete command</title>
+    <authors>Lucas Kaczanowski</authors>
+    <owners>Lucas Kaczanowski</owners>
+    <licenseUrl>https://github.com/lkaczanowski/NuGetPackageExplorer.Plugins/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/lkaczanowski/NuGetPackageExplorer.Plugins</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Plugin for NuGet Package Explorer - removes selected package from source</description>
+    <copyright>Copyright (c) 2014 Lucas Kaczanowski</copyright>
+  </metadata>
+</package>
