@@ -91,7 +91,13 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
 
     private string GetPackageSource(string packagePath)
     {
-      throw new System.NotImplementedException();
+      int patternIndex;
+      if ((patternIndex = packagePath.IndexOf(@"/api/", System.StringComparison.Ordinal)) == -1)
+      {
+        return string.Empty;
+      }
+
+      return packagePath.Substring(0, patternIndex);
     }
   }
 }
