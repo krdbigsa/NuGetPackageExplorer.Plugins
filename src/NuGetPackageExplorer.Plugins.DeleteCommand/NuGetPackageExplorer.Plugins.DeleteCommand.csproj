@@ -55,6 +55,7 @@
     <Compile Include="Controls\SettingsControl.xaml.cs">
       <DependentUpon>SettingsControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SettingsViewModel.cs" />
     <Compile Include="DeletePackageCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

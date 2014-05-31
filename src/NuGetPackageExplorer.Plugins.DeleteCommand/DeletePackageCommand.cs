@@ -17,7 +17,7 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand
       {
         var settingsDialog = new Window
         {
-          Content = new SettingsControl(package, packagePath),
+          Content = new SettingsControl(new SettingsViewModel(package, packagePath)),
           Topmost = true,
           Width = 600,
           Height = 200,

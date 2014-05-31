@@ -11,28 +11,18 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
   /// </summary>
   public partial class SettingsControl : UserControl
   {
-    private readonly IPackage _package;
-
-    private readonly string _packagePath;
-
+    private SettingsViewModel _settingsViewModel;
     public SettingsControl()
     {
       InitializeComponent();
     }
 
-    public SettingsControl(IPackage package, string packagePath)
+    public SettingsControl(SettingsViewModel viewModel)
       : this()
     {
-      _package = package;
-      _packagePath = packagePath;
+      _settingsViewModel = viewModel;
 
-      // TODO: add some proper binding
-
-      QuestionLabel.Content = string.Format("Are you sure you want to remove package [{0}, {1}] from source?", _package.Id, _package.Version);
-
-      SourceText.Text = GetPackageSource(_packagePath);
-
-      ApiKeyText.Text = _package.Id;
+      DataContext = _settingsViewModel;
     }
 
     public Window ParentWindow
@@ -41,12 +31,6 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
       {
         return Parent as Window;
       }
-    }
-
-    private string GetPackageSource(string packagePath)
-    {
-      // TODO: parse source url from path
-      return packagePath;
     }
 
     private void OnButtonOkClick(object sender, RoutedEventArgs e)
