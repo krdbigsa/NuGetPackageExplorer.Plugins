@@ -1,38 +1,39 @@
 ﻿using System;
 using System.Windows;
-
+using Microsoft.Practices.Unity;
 using NuGet;
-
+using NuGetPackageExplorer.MvvmSupport.Extensions.Unity;
 using NuGetPackageExplorer.Plugins.DeleteCommand.Controls;
 using NuGetPackageExplorer.Types;
 
 namespace NuGetPackageExplorer.Plugins.DeleteCommand
 {
   [PackageCommandMetadata("Delete selected package...")]
-  internal class DeletePackageCommand : IPackageCommand
+  internal class DeletePackageCommand : PluginCommand, IPackageCommand
   {
     public void Execute(IPackage package, string packagePath)
     {
       try
       {
-        var settingsDialog = new Window
+        var packageInfo = new PackageInfo
         {
-          Content = new SettingsControl(new SettingsViewModel(package, packagePath)),
-          Topmost = true,
-          Width = 600,
-          Height = 200,
-          ResizeMode = ResizeMode.NoResize,
-          WindowStartupLocation = WindowStartupLocation.CenterOwner,
-          ShowInTaskbar = false
+          Package = package, 
+          PackagePath = packagePath
         };
 
-        settingsDialog.ShowDialog();
-
+        Container.RegisterInstance<PackageInfo>(packageInfo, new ContainerControlledLifetimeManager());
+        MainViewModel.ShowDialog();
       }
       catch (Exception exception)
       {
         MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
       }
+    }
+
+    protected override void RegisterViewModels(Microsoft.Practices.Unity.IUnityContainer container)
+    {
+      container.RegisterViewModel<SettingsViewModel, ServiceView>();
+      SetMainViewModel<SettingsViewModel>();
     }
   }
 }

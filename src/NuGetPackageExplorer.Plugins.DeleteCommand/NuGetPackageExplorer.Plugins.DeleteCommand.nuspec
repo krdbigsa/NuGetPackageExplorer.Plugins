@@ -12,4 +12,9 @@
     <description>Plugin for NuGet Package Explorer - removes selected package from source</description>
     <copyright>Copyright (c) 2014 Lucas Kaczanowski</copyright>
   </metadata>
+  <files>
+    <file src="bin\Debug\Microsoft.Practices.Unity.dll" target="lib/net45" />
+    <file src="bin\Debug\Microsoft.Practices.ServiceLocation.dll" target="lib/net45" />
+
+  </files>
 </package>

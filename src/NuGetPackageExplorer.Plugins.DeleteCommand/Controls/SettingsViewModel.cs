@@ -1,91 +1,71 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
+﻿using System;
+using System.Windows;
 using NuGet;
+using NuGetPackageExplorer.MvvmSupport;
+using NuGetPackageExplorer.MvvmSupport.Command;
 
 namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
 {
-  public class SettingsViewModel : INotifyPropertyChanged
+  public class SettingsViewModel : ViewModelBase
   {
-    private string _packageSource;
-
     private string _apiKey;
-
     private string _question;
-
+    private string _packageSource;
     private IPackage _package;
 
-    public SettingsViewModel(IPackage package, string packagePath)
+    public SettingsViewModel(PackageInfo packageInfo)
     {
-      _package = package;
-
-      PackageSource = GetPackageSource(packagePath);
-
+      _package = packageInfo.Package;
+      PackageSource = GetPackageSource(packageInfo.PackagePath);
       Question = string.Format("Are you sure you want to remove package [{0}, {1}] from source?", _package.Id, _package.Version);
+
+      Execute = new Command(ExecuteCommandExecute, CanExecuteCommandExecute);
+      Cancel = new Command<Window>(CancelCommandExecute);
     }
 
+    public Command Execute { get; private set; }
+
+    public Command<Window> Cancel { get; private set; } 
+    
     public string PackageSource
     {
       get
       {
         return _packageSource;
       }
+
       set
       {
-        if (_packageSource == value)
-        {
-          return;
-        }
-
         _packageSource = value;
-        OnPropertyChanged();
+        OnPropertyChanged(() => PackageSource);
       }
     }
-
+    
     public string ApiKey
     {
       get
       {
         return _apiKey;
       }
+
       set
       {
-        if (_apiKey == value)
-        {
-          return;
-        }
-
         _apiKey = value;
-        OnPropertyChanged();
+        OnPropertyChanged(() => ApiKey);
       }
     }
-
+    
     public string Question
     {
       get
       {
         return _question;
       }
+
       set
       {
-        if (_question == value)
-        {
-          return;
-        }
-
         _question = value;
-        OnPropertyChanged();
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-    {
-      PropertyChangedEventHandler handler = PropertyChanged;
-      if (handler != null)
-      {
-        handler(this, new PropertyChangedEventArgs(propertyName));
+        OnPropertyChanged(() => Question);
       }
     }
 
@@ -98,6 +78,20 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
       }
 
       return packagePath.Substring(0, patternIndex);
+    }
+
+    private bool CanExecuteCommandExecute()
+    {
+      return !(String.IsNullOrEmpty(PackageSource) || String.IsNullOrEmpty(ApiKey));
+    }
+
+    private void ExecuteCommandExecute()
+    {
+    }
+
+    private void CancelCommandExecute(Window view)
+    {
+      view.Close();
     }
   }
 }
