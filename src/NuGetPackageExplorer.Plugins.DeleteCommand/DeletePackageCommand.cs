@@ -15,7 +15,12 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand
     {
       try
       {
-        PackageInfo packageInfo = new PackageInfo() {Package = package, PackagePath = packagePath};
+        var packageInfo = new PackageInfo
+        {
+          Package = package, 
+          PackagePath = packagePath
+        };
+
         Container.RegisterInstance<PackageInfo>(packageInfo, new ContainerControlledLifetimeManager());
         MainViewModel.ShowDialog();
       }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using NuGetPackageExplorer.MvvmSupport;
 
@@ -23,24 +19,13 @@ namespace NuGetPackageExplorer.Plugins
       }
 
       if (_initialized)
+      {
         return;
-      
+      }
+
       RegisterTypes(_container);
       RegisterViewModels(_container);
       _initialized = true;
-    }
-
-    protected virtual void RegisterViewModels(IUnityContainer container)
-    {
-    }
-
-    protected virtual void RegisterTypes(IUnityContainer container)
-    {
-    }
-
-    protected void SetMainViewModel<T>() where T: ViewModelBase
-    {
-      _mainViewModelType = typeof (T);
     }
 
     protected ViewModelBase MainViewModel
@@ -59,6 +44,19 @@ namespace NuGetPackageExplorer.Plugins
     protected IUnityContainer Container
     {
       get { return _container; }
+    }
+
+    protected virtual void RegisterViewModels(IUnityContainer container)
+    {
+    }
+
+    protected virtual void RegisterTypes(IUnityContainer container)
+    {
+    }
+
+    protected void SetMainViewModel<T>() where T : ViewModelBase
+    {
+      _mainViewModelType = typeof(T);
     }
   }
 }

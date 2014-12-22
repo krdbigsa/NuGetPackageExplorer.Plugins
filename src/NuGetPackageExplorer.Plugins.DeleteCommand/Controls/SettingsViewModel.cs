@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using NuGet;
 using NuGetPackageExplorer.MvvmSupport;
@@ -15,9 +13,6 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
     private string _packageSource;
     private IPackage _package;
 
-    public Command Execute { get; private set; }
-    public Command<Window> Cancel { get; private set; } 
-
     public SettingsViewModel(PackageInfo packageInfo)
     {
       _package = packageInfo.Package;
@@ -27,6 +22,10 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
       Execute = new Command(ExecuteCommandExecute, CanExecuteCommandExecute);
       Cancel = new Command<Window>(CancelCommandExecute);
     }
+
+    public Command Execute { get; private set; }
+
+    public Command<Window> Cancel { get; private set; } 
     
     public string PackageSource
     {
@@ -34,6 +33,7 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
       {
         return _packageSource;
       }
+
       set
       {
         _packageSource = value;
@@ -47,6 +47,7 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
       {
         return _apiKey;
       }
+
       set
       {
         _apiKey = value;
@@ -60,6 +61,7 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
       {
         return _question;
       }
+
       set
       {
         _question = value;
@@ -85,7 +87,6 @@ namespace NuGetPackageExplorer.Plugins.DeleteCommand.Controls
 
     private void ExecuteCommandExecute()
     {
-      
     }
 
     private void CancelCommandExecute(Window view)

@@ -1,12 +1,6 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
 using NuGetPackageExplorer.MvvmSupport.Configuration;
 using NuGetPackageExplorer.MvvmSupport.Extensions.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace NuGetPackageExplorer.MvvmSupport
 {
@@ -27,15 +21,10 @@ namespace NuGetPackageExplorer.MvvmSupport
         {
           Window window = new Window();
           window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-          //window.AllowsTransparency = true;
-          //window.WindowStyle = WindowStyle.None;
-          //window.BorderThickness = new Thickness(1);
-          //window.BorderBrush = Brushes.Black;
           window.ResizeMode = ResizeMode.NoResize;
           window.SizeToContent = SizeToContent.WidthAndHeight;
           window.ShowInTaskbar = false;
           window.Topmost = true;
-
 
           FrameworkElement control = (FrameworkElement)view;
           window.Height = control.Height;
